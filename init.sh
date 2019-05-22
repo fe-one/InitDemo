@@ -6,14 +6,14 @@ PROJ_NAME=$1
 rm -rv InitDemo.xcodeproj/xcuserdata
 
 # 将project.pbxproj 中InitDemo 替换为 输入的项目名
-sed -i 's/InitDemo/${PROJ_NAME}/g' InitDemo.xcodeproj/project.pbxproj
+sed -i '' 's/InitDemo/${PROJ_NAME}/g' InitDemo.xcodeproj/project.pbxproj
 
 # 如果使用pod
 # 将project.xcworkspace 中的 contents.xcworkspacedata 中的 InitDemo 替换为 输入的项目名
-sed -i 's/InitDemo/${PROJ_NAME}/g' InitDemo.xcodeproj/project.xcworkspace/contents.xcworkspacedata 
+sed -i '' 's/InitDemo/${PROJ_NAME}/g' InitDemo.xcodeproj/project.xcworkspace/contents.xcworkspacedata 
 
 # 修改Podfile
-sed -i 's/InitDemo/${PROJ_NAME}/g' Podfile
+sed -i '' 's/InitDemo/${PROJ_NAME}/g' Podfile
 
 # 安装依赖
 pod install
