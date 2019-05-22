@@ -7,4 +7,6 @@ target 'InitDemo' do
   # Pods for InitDemo
   pod 'FlexLayout'
   pod 'PinLayout'
+  pod "SwiftProtobuf", '~> 1.5.0'
+  pod "Alamofire"
 end
