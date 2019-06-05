@@ -51,12 +51,12 @@ struct ProtobufEncoding: ParameterEncoding {
         guard let url = urlRequest.url else {
             throw AFError.parameterEncodingFailed(reason: .missingURL)
         }
-        if var urlComponents = URLComponents(url: url, resolvingAgainstBaseURL: false) {
-            if UserManager.shared.user.userID != "" {
-                urlComponents.percentEncodedQuery = "user_id=" + UserManager.shared.user.userID
-                urlRequest.url = urlComponents.url
-            }
-        }
+//        if var urlComponents = URLComponents(url: url, resolvingAgainstBaseURL: false) {
+//            if UserManager.shared.user.userID != "" {
+//                urlComponents.percentEncodedQuery = "user_id=" + UserManager.shared.user.userID
+//                urlRequest.url = urlComponents.url
+//            }
+//        }
         //        print(try body.jsonString(), urlRequest.url)
         return urlRequest
     }
