@@ -31,3 +31,16 @@ extension UIControl {
         objc_removeAssociatedObjects(self)
     }
 }
+
+extension UIView {
+    // 添加点击事件
+    func addTapAction(_ closure: @escaping () -> ()) {
+        let sleeve = ClosureSleeve(closure)
+        addGestureRecognizer(UITapGestureRecognizer(target: sleeve, action: #selector(ClosureSleeve.invoke)))
+        objc_setAssociatedObject(self, String(format: "[%d]", arc4random()), sleeve, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN)
+    }
+    
+    func removeTapActions() {
+        objc_removeAssociatedObjects(self)
+    }
+}

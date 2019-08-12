@@ -9,4 +9,12 @@ target 'InitDemo' do
   pod 'PinLayout'
   pod "SwiftProtobuf", '~> 1.5.0'
   pod "Alamofire"
+  pod "KeychainSwift"
+  pod "SwiftyStoreKit"
+  pod 'lottie-ios'
+  pod 'JGProgressHUD'
+  pod 'AppsFlyerFramework'
+  pod 'CryptoSwift'
+  pod 'Fabric'
+  pod 'Crashlytics'
 end

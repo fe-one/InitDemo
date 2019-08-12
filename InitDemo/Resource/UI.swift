@@ -9,6 +9,8 @@
 import UIKit
 import FlexLayout
 
+public var safeArea: UIEdgeInsets = UIEdgeInsets()
+
 // Screen width.
 public var screenWidth: CGFloat {
     return UIScreen.main.bounds.width
@@ -25,7 +27,7 @@ public var navBarHeight: CGFloat {
 }
 // StatusBar height
 public var statusBarHeight: CGFloat {
-    return UIDevice.current.userInterfaceIdiom == .pad ? 0: UIApplication.shared.statusBarFrame.height
+    return UIDevice.current.userInterfaceIdiom == .pad ? 0 : UIApplication.shared.statusBarFrame.height
 }
 // bottom no tabbar
 public var bottomNoTabBarHeihgt: CGFloat {
@@ -36,7 +38,6 @@ public var bottomNoTabBarHeihgt: CGFloat {
 public func getSafeHeightBy(hasTabBar: Bool, hasNavBar: Bool) -> CGFloat {
     return screenHeight - statusBarHeight - (hasNavBar ? navBarHeight : 0) - bottomNoTabBarHeihgt - (hasTabBar ? 49 : 0)
 }
-
 
 // 由于个别地方需要换算成比例
 // 所以我需要个基本的大小
@@ -77,8 +78,8 @@ func fontSize(_ size: CGFloat) -> UIFont? {
 }
 
 extension UIFont {
-    static func size(_ size: CGFloat) -> UIFont? {
-        return self.sizeWeight(size, weight: .Regular)
+    static func size(_ size: CGFloat, weight: FontWeight = .Regular) -> UIFont? {
+        return self.sizeWeight(size, weight: weight)
     }
     
     static func sizeWeight(_ size: CGFloat, weight: FontWeight) -> UIFont? {
@@ -105,11 +106,25 @@ extension UILabel {
     static func new(string: String, size: CGFloat, color: UIColor, sizeWeight: FontWeight = .Regular) -> UILabel {
         let text = UILabel()
         text.text = string
-        text.font = UIFont.size(size)
+        text.font = UIFont.size(size, weight: sizeWeight)
         text.textColor = color
         text.sizeToFit()
         // 尝试设置lineHeight=1，去掉ascender
         // text.flex.height(size)
+        return text
+    }
+    
+    static func new(string: String, size: CGFloat, color: UIColor, fontName: String, alignment: NSTextAlignment = .left) -> UILabel {
+        let text = UILabel()
+        text.text = string
+        text.font = UIFont(name: fontName, size: size)
+        text.textColor = color
+        text.textAlignment = alignment
+        if string.contains("\n") {
+            text.numberOfLines = 0
+        }
+        text.sizeToFit()
+        
         return text
     }
     
@@ -136,6 +151,10 @@ extension UIDevice {
             }
             return identifier + String(UnicodeScalar(UInt8(value)))
         }
+    }
+    
+    var appVersion: String {
+        return Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? ""
     }
 }
 
@@ -194,47 +213,25 @@ func impactFeedback(style: FeedbackType) {
 }
 
 // 拓展UIButton 增加扩大选取的函数
-var btnHitAreaMarginKey = 101
+fileprivate var rectNameKey: (Character?, Character?, Character?, Character?)
 
 extension UIButton {
-    var hitAreaMargin: CGFloat {
-        set(margin) {
-            objc_setAssociatedObject(self, &btnHitAreaMarginKey, margin, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN)
-            // print("set \(objc_getAssociatedObject(self, &btnHitAreaMarginKey))")
-        }
-        get {
-            // print(objc_getAssociatedObject(self, &btnHitAreaMarginKey))
-            if let margin = objc_getAssociatedObject(self, &btnHitAreaMarginKey) as? CGFloat {
-                return margin
-            }
-            return 0
-        }
+    
+    func setEnlargeEdgeWith(top: CGFloat, right: CGFloat, bottom: CGFloat, left: CGFloat) {
+        objc_setAssociatedObject(self, &rectNameKey.0, top, .OBJC_ASSOCIATION_COPY_NONATOMIC)
+        objc_setAssociatedObject(self, &rectNameKey.1, right, .OBJC_ASSOCIATION_COPY_NONATOMIC)
+        objc_setAssociatedObject(self, &rectNameKey.2, bottom, .OBJC_ASSOCIATION_COPY_NONATOMIC)
+        objc_setAssociatedObject(self, &rectNameKey.3, left, .OBJC_ASSOCIATION_COPY_NONATOMIC)
     }
     
-    override open func point(inside point: CGPoint, with event: UIEvent?) -> Bool {
-        if hitAreaMargin == 0 {
-            return super.point(inside: point, with: event)
+    open override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
+        if let topEdge = objc_getAssociatedObject(self, &rectNameKey.0) as? CGFloat,
+            let rightEdge = objc_getAssociatedObject(self, &rectNameKey.1) as? CGFloat,
+            let bottomEdge = objc_getAssociatedObject(self, &rectNameKey.2) as? CGFloat,
+            let leftEdge = objc_getAssociatedObject(self, &rectNameKey.3) as? CGFloat {
+            return CGRect(x: bounds.origin.x - leftEdge, y: bounds.origin.y - topEdge, width: bounds.width + leftEdge + rightEdge, height: bounds.height + topEdge + bottomEdge).contains(point) ? self : nil
         }
-        let area = self.bounds.insetBy(dx: -hitAreaMargin, dy: -hitAreaMargin)
-        return area.contains(point)
-    }
-    
-    // 创建默认按钮 只有图片的
-    func createNormalButton(image: UIImage, action: @escaping () -> ()) -> UIButton {
-        self.setImage(image, for: .normal)
-        self.addAction(for: .touchUpInside) {
-            action()
-        }
-        return self
-    }
-    
-    // 创建默认按钮 只有文字
-    func createNormalButton(title: String, size: CGFloat, color: UIColor, action: @escaping () -> ()) -> UIButton {
-        self.setTitle(title, size, color)
-        self.addAction(for: .touchUpInside) {
-            action()
-        }
-        return self
+        return super.hitTest(point, with: event)
     }
     
     // 扩展
@@ -244,42 +241,6 @@ extension UIButton {
         self.setTitleColor(color, for: .normal)
     }
     
-    // 设置按钮中 文字与图片
-    func positionLabelRespectToImage(title: String, position: UIView.ContentMode,
-                                     spacing: CGFloat) {
-        
-        let imageSize = self.imageRect(forContentRect: self.frame)
-        let titleFont = self.titleLabel?.font!
-        let titleSize = title.size(withAttributes: [NSAttributedString.Key.font: titleFont!])
-        
-        self.imageView?.contentMode = .center
-        self.titleLabel?.contentMode = .center
-        var titleInsets: UIEdgeInsets
-        var imageInsets: UIEdgeInsets
-        
-        switch (position) {
-        case .top:
-            titleInsets = UIEdgeInsets(top: -(imageSize.height + titleSize.height + spacing),
-                                       left: -(imageSize.width), bottom: 0, right: 0)
-            imageInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: -titleSize.width)
-        case .bottom:
-            titleInsets = UIEdgeInsets(top: (imageSize.height + titleSize.height + spacing),
-                                       left: -(imageSize.width), bottom: 0, right: 0)
-            imageInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: -titleSize.width)
-        case .left:
-            titleInsets = UIEdgeInsets(top: 0, left: -(imageSize.width * 2), bottom: 0, right: 0)
-            imageInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: -(titleSize.width * 2 + spacing))
-        case .right:
-            titleInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: -spacing)
-            imageInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
-        default:
-            titleInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
-            imageInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
-        }
-        
-        self.titleEdgeInsets = titleInsets
-        self.imageEdgeInsets = imageInsets
-    }
 }
 
 
@@ -316,6 +277,7 @@ extension UIView {
         self.layer.shadowRadius = radius;
         self.layer.masksToBounds = false;
     }
+    
 }
 
 extension UIImage {
@@ -378,10 +340,24 @@ extension UIImage {
             break
         }
         
-        guard let newCGImage = ctx.makeImage() else { return nil }
+        guard let newCGImage = ctx.makeImage() else {
+            return nil
+        }
         return UIImage.init(cgImage: newCGImage, scale: 1, orientation: .up)
     }
 }
+
+
+extension Data {
+    var hexString: String {
+        return map {
+            String(format: "%02.2hhx", $0)
+            }.joined()
+    }
+}
+
+
+
 
 
 

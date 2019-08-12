@@ -8,6 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		A98144B5C6718AD395558A69 /* Pods_InitDemo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CA379216530A4E93B77556C0 /* Pods_InitDemo.framework */; };
+		D70AF23C230135C200E00778 /* Style.swift in Sources */ = {isa = PBXBuildFile; fileRef = D70AF23B230135C200E00778 /* Style.swift */; };
+		D70AF23E2301362500E00778 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = D70AF23D2301362500E00778 /* Utils.swift */; };
+		D70AF2402301366E00E00778 /* ViewTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = D70AF23F2301366E00E00778 /* ViewTransition.swift */; };
+		D70AF242230136D500E00778 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = D70AF241230136D500E00778 /* Logger.swift */; };
 		D720C45E2295729700E33EAF /* UI.swift in Sources */ = {isa = PBXBuildFile; fileRef = D720C45D2295729700E33EAF /* UI.swift */; };
 		D720C4602295733500E33EAF /* Http.swift in Sources */ = {isa = PBXBuildFile; fileRef = D720C45F2295733500E33EAF /* Http.swift */; };
 		D7337525229521E4008B3C0A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7337524229521E4008B3C0A /* AppDelegate.swift */; };
@@ -23,6 +27,10 @@
 		322C4F290207D7BEF0CCB56F /* Pods-InitDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-InitDemo.debug.xcconfig"; path = "Target Support Files/Pods-InitDemo/Pods-InitDemo.debug.xcconfig"; sourceTree = "<group>"; };
 		B37C79DC69D4A736FA198311 /* Pods-InitDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-InitDemo.release.xcconfig"; path = "Target Support Files/Pods-InitDemo/Pods-InitDemo.release.xcconfig"; sourceTree = "<group>"; };
 		CA379216530A4E93B77556C0 /* Pods_InitDemo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_InitDemo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D70AF23B230135C200E00778 /* Style.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Style.swift; sourceTree = "<group>"; };
+		D70AF23D2301362500E00778 /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
+		D70AF23F2301366E00E00778 /* ViewTransition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewTransition.swift; sourceTree = "<group>"; };
+		D70AF241230136D500E00778 /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
 		D720C45D2295729700E33EAF /* UI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UI.swift; sourceTree = "<group>"; };
 		D720C45F2295733500E33EAF /* Http.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Http.swift; sourceTree = "<group>"; };
 		D7337521229521E4008B3C0A /* InitDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = InitDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -63,6 +71,13 @@
 				B37C79DC69D4A736FA198311 /* Pods-InitDemo.release.xcconfig */,
 			);
 			path = Pods;
+			sourceTree = "<group>";
+		};
+		D70AF243230136EF00E00778 /* Component */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Component;
 			sourceTree = "<group>";
 		};
 		D7337518229521E4008B3C0A = {
@@ -116,6 +131,7 @@
 		D73375502295557D008B3C0A /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				D70AF243230136EF00E00778 /* Component */,
 				D733754E22955560008B3C0A /* index.swift */,
 			);
 			path = Controller;
@@ -128,6 +144,10 @@
 				D733755122955591008B3C0A /* AddAction.swift */,
 				D720C45D2295729700E33EAF /* UI.swift */,
 				D720C45F2295733500E33EAF /* Http.swift */,
+				D70AF23B230135C200E00778 /* Style.swift */,
+				D70AF23D2301362500E00778 /* Utils.swift */,
+				D70AF23F2301366E00E00778 /* ViewTransition.swift */,
+				D70AF241230136D500E00778 /* Logger.swift */,
 			);
 			path = Resource;
 			sourceTree = "<group>";
@@ -262,12 +282,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				D733754F22955560008B3C0A /* index.swift in Sources */,
+				D70AF242230136D500E00778 /* Logger.swift in Sources */,
 				D733755422955591008B3C0A /* AddAction.swift in Sources */,
+				D70AF23E2301362500E00778 /* Utils.swift in Sources */,
 				D7337525229521E4008B3C0A /* AppDelegate.swift in Sources */,
 				D733755322955591008B3C0A /* BaseViewController.swift in Sources */,
 				D7337557229555BC008B3C0A /* template.swift in Sources */,
 				D720C45E2295729700E33EAF /* UI.swift in Sources */,
 				D720C4602295733500E33EAF /* Http.swift in Sources */,
+				D70AF23C230135C200E00778 /* Style.swift in Sources */,
+				D70AF2402301366E00E00778 /* ViewTransition.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -83,3 +83,30 @@ func request(_ path: String, method: HTTPMethod = .get, parameters: Parameters? 
     }
 }
 
+var networkReachability: Bool = false
+
+func currentNetReachability(action: @escaping () -> ()) {
+    let manager = NetworkReachabilityManager()
+    manager?.listener = { status in
+        var statusStr: String?
+        switch status {
+        case .unknown:
+            statusStr = "未识别的网络"
+        case .notReachable:
+            statusStr = "不可用的网络(未连接)"
+        case .reachable:
+            networkReachability = true
+            if (manager?.isReachableOnWWAN)! {
+                statusStr = "2G,3G,4G...的网络"
+                action()
+            } else if (manager?.isReachableOnEthernetOrWiFi)! {
+                statusStr = "wifi的网络"
+                action()
+            }
+        }
+        Logger.console("network status changed", statusStr ?? "unknown")
+    }
+    manager?.startListening()
+}
+
+
