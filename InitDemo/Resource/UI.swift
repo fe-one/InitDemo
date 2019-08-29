@@ -9,6 +9,9 @@
 import UIKit
 import FlexLayout
 
+import UIKit
+import FlexLayout
+
 public var safeArea: UIEdgeInsets = UIEdgeInsets()
 
 // Screen width.
@@ -103,7 +106,7 @@ extension UIColor {
 
 extension UILabel {
     // 创建简单文本
-    static func new(string: String, size: CGFloat, color: UIColor, sizeWeight: FontWeight = .Regular) -> UILabel {
+    static func new(string: String, color: UIColor, size: CGFloat, sizeWeight: FontWeight = .Regular) -> UILabel {
         let text = UILabel()
         text.text = string
         text.font = UIFont.size(size, weight: sizeWeight)
@@ -114,7 +117,7 @@ extension UILabel {
         return text
     }
     
-    static func new(string: String, size: CGFloat, color: UIColor, fontName: String, alignment: NSTextAlignment = .left) -> UILabel {
+    static func new(string: String, size: CGFloat, color: UIColor, fontName: String = Style.shared.fontName, alignment: NSTextAlignment = .left) -> UILabel {
         let text = UILabel()
         text.text = string
         text.font = UIFont(name: fontName, size: size)
@@ -235,9 +238,9 @@ extension UIButton {
     }
     
     // 扩展
-    func setTitle(_ title: String, _ size: CGFloat, _ color: UIColor) {
+    func setTitle(_ title: String, _ size: CGFloat, _ color: UIColor, _ fontName: String) {
         self.setTitle(title, for: .normal)
-        self.titleLabel?.font = UIFont.size(size)
+        self.titleLabel?.font = UIFont(name: fontName, size: size)
         self.setTitleColor(color, for: .normal)
     }
     
@@ -246,7 +249,7 @@ extension UIButton {
 
 extension UIView {
     
-    func corner(byRoundingCorners corners: UIRectCorner, radii: CGFloat) {
+    func corner(byRoundingCorners corners: UIRectCorner = [.topLeft, .topRight, .bottomLeft, .bottomRight], radii: CGFloat) {
         let maskPath = UIBezierPath(roundedRect: self.bounds, byRoundingCorners: corners, cornerRadii: CGSize(width: radii, height: radii))
         let maskLayer = CAShapeLayer()
         maskLayer.frame = self.bounds
@@ -353,6 +356,20 @@ extension Data {
         return map {
             String(format: "%02.2hhx", $0)
             }.joined()
+    }
+}
+
+extension Date {
+    func getDateString(format: String) -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = format
+        return dateFormatter.string(from: self)
+    }
+    
+    var milliStamp : String {
+        let timeInterval: TimeInterval = self.timeIntervalSince1970
+        let millisecond = CLongLong(round(timeInterval*1000))
+        return "\(millisecond)"
     }
 }
 

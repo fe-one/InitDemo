@@ -21,6 +21,8 @@
 		D733755322955591008B3C0A /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D733755222955591008B3C0A /* BaseViewController.swift */; };
 		D733755422955591008B3C0A /* AddAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = D733755122955591008B3C0A /* AddAction.swift */; };
 		D7337557229555BC008B3C0A /* template.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7337556229555BB008B3C0A /* template.swift */; };
+		D7BDE2BA23179D5300DBF1D3 /* Modal.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7BDE2B923179D5300DBF1D3 /* Modal.swift */; };
+		D7BDE2BC23179DB100DBF1D3 /* Authorize.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7BDE2BB23179DB100DBF1D3 /* Authorize.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -42,6 +44,8 @@
 		D733755122955591008B3C0A /* AddAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddAction.swift; sourceTree = "<group>"; };
 		D733755222955591008B3C0A /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		D7337556229555BB008B3C0A /* template.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = template.swift; sourceTree = "<group>"; };
+		D7BDE2B923179D5300DBF1D3 /* Modal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Modal.swift; sourceTree = "<group>"; };
+		D7BDE2BB23179DB100DBF1D3 /* Authorize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Authorize.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -73,13 +77,6 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
-		D70AF243230136EF00E00778 /* Component */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Component;
-			sourceTree = "<group>";
-		};
 		D7337518229521E4008B3C0A = {
 			isa = PBXGroup;
 			children = (
@@ -104,8 +101,8 @@
 				D7337558229555CB008B3C0A /* Template */,
 				D7337555229555A4008B3C0A /* Resource */,
 				D73375502295557D008B3C0A /* Controller */,
-				D733754D22955557008B3C0A /* Presenter */,
-				D733754C2295553E008B3C0A /* Presenter+Protocol */,
+				D7BDE2BF23179F8300DBF1D3 /* Presenter */,
+				D7BDE2C023179F9600DBF1D3 /* Presenter+Protocol */,
 				D7337524229521E4008B3C0A /* AppDelegate.swift */,
 				D733752B229521E6008B3C0A /* Assets.xcassets */,
 				D733752D229521E6008B3C0A /* LaunchScreen.storyboard */,
@@ -114,24 +111,10 @@
 			path = InitDemo;
 			sourceTree = "<group>";
 		};
-		D733754C2295553E008B3C0A /* Presenter+Protocol */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = "Presenter+Protocol";
-			sourceTree = "<group>";
-		};
-		D733754D22955557008B3C0A /* Presenter */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Presenter;
-			sourceTree = "<group>";
-		};
 		D73375502295557D008B3C0A /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				D70AF243230136EF00E00778 /* Component */,
+				D7BDE2BE23179F5D00DBF1D3 /* Component */,
 				D733754E22955560008B3C0A /* index.swift */,
 			);
 			path = Controller;
@@ -148,6 +131,8 @@
 				D70AF23D2301362500E00778 /* Utils.swift */,
 				D70AF23F2301366E00E00778 /* ViewTransition.swift */,
 				D70AF241230136D500E00778 /* Logger.swift */,
+				D7BDE2B923179D5300DBF1D3 /* Modal.swift */,
+				D7BDE2BB23179DB100DBF1D3 /* Authorize.swift */,
 			);
 			path = Resource;
 			sourceTree = "<group>";
@@ -158,6 +143,27 @@
 				D7337556229555BB008B3C0A /* template.swift */,
 			);
 			path = Template;
+			sourceTree = "<group>";
+		};
+		D7BDE2BE23179F5D00DBF1D3 /* Component */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Component;
+			sourceTree = "<group>";
+		};
+		D7BDE2BF23179F8300DBF1D3 /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Presenter;
+			sourceTree = "<group>";
+		};
+		D7BDE2C023179F9600DBF1D3 /* Presenter+Protocol */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "Presenter+Protocol";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -288,7 +294,9 @@
 				D7337525229521E4008B3C0A /* AppDelegate.swift in Sources */,
 				D733755322955591008B3C0A /* BaseViewController.swift in Sources */,
 				D7337557229555BC008B3C0A /* template.swift in Sources */,
+				D7BDE2BA23179D5300DBF1D3 /* Modal.swift in Sources */,
 				D720C45E2295729700E33EAF /* UI.swift in Sources */,
+				D7BDE2BC23179DB100DBF1D3 /* Authorize.swift in Sources */,
 				D720C4602295733500E33EAF /* Http.swift in Sources */,
 				D70AF23C230135C200E00778 /* Style.swift in Sources */,
 				D70AF2402301366E00E00778 /* ViewTransition.swift in Sources */,
@@ -432,6 +440,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = InitDemo/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -439,7 +448,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.swift.InitDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -450,6 +459,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = InitDemo/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -457,7 +467,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.swift.InitDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
